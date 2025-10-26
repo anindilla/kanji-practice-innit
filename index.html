@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanji Learning App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kanji-blue': '#3B82F6',
+                        'kanji-red': '#EF4444',
+                        'kanji-green': '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-kanji-blue">漢字学習</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="px-4 py-2 rounded-md text-sm font-medium bg-kanji-blue text-white">Learn Kanji</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Learn Kanji Tab -->
+        <div id="learn-content" class="space-y-6">
+            <!-- Header -->
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">Learn Kanji</h1>
+                <p class="text-lg text-gray-600">Click on any kanji to see detailed information</p>
+            </div>
+
+            <!-- Level Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-kanji-blue text-white" data-level="N5">N5</button>
+                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N4">N4</button>
+                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N3">N3</button>
+                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N2">N2</button>
+                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N1">N1</button>
+            </div>
+
+            <!-- Kanji Grid -->
+            <div id="kanji-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                <!-- Kanji cards will be populated here -->
+            </div>
+
+            <!-- Kanji Count -->
+            <div class="text-center text-gray-500">
+                <span id="kanji-count">Showing 0 kanji for N5</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Kanji Modal -->
+    <div id="kanji-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Kanji Details</h3>
+                    <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modal-content" class="text-center">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-auto">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500 text-sm">
+                Kanji Learning App - Practice Japanese Characters
+            </p>
+            <p class="text-center text-gray-400 text-xs mt-2">
+                Vibe-coded by <a href="https://anindilla.com" target="_blank" class="text-kanji-blue hover:text-blue-600 transition-colors">dilleuh</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Kanji data
+        const kanjiData = {
+            'N5': [
+                { character: '一', onyomi: ['いち', 'いつ'], kunyomi: ['ひと'], meanings: ['one'] },
+                { character: '二', onyomi: ['に'], kunyomi: ['ふた'], meanings: ['two'] },
+                { character: '三', onyomi: ['さん'], kunyomi: ['み'], meanings: ['three'] },
+                { character: '四', onyomi: ['し'], kunyomi: ['よん', 'よ'], meanings: ['four'] },
+                { character: '五', onyomi: ['ご'], kunyomi: ['いつ'], meanings: ['five'] },
+                { character: '六', onyomi: ['ろく'], kunyomi: ['む'], meanings: ['six'] },
+                { character: '七', onyomi: ['しち'], kunyomi: ['なな'], meanings: ['seven'] },
+                { character: '八', onyomi: ['はち'], kunyomi: ['や'], meanings: ['eight'] },
+                { character: '九', onyomi: ['きゅう', 'く'], kunyomi: ['ここの'], meanings: ['nine'] },
+                { character: '十', onyomi: ['じゅう'], kunyomi: ['とお'], meanings: ['ten'] },
+                { character: '人', onyomi: ['じん', 'にん'], kunyomi: ['ひと'], meanings: ['person', 'people'] },
+                { character: '大', onyomi: ['だい', 'たい'], kunyomi: ['おお'], meanings: ['big', 'large'] },
+                { character: '小', onyomi: ['しょう'], kunyomi: ['ちい', 'こ'], meanings: ['small', 'little'] },
+                { character: '山', onyomi: ['さん'], kunyomi: ['やま'], meanings: ['mountain'] },
+                { character: '川', onyomi: ['せん'], kunyomi: ['かわ'], meanings: ['river'] },
+                { character: '田', onyomi: ['でん'], kunyomi: ['た'], meanings: ['rice field'] },
+                { character: '日', onyomi: ['にち', 'じつ'], kunyomi: ['ひ', 'か'], meanings: ['day', 'sun'] },
+                { character: '月', onyomi: ['げつ', 'がつ'], kunyomi: ['つき'], meanings: ['month', 'moon'] },
+                { character: '火', onyomi: ['か'], kunyomi: ['ひ'], meanings: ['fire'] },
+                { character: '水', onyomi: ['すい'], kunyomi: ['みず'], meanings: ['water'] },
+                { character: '木', onyomi: ['もく', 'ぼく'], kunyomi: ['き'], meanings: ['tree', 'wood'] },
+                { character: '金', onyomi: ['きん', 'こん'], kunyomi: ['かね'], meanings: ['gold', 'money'] },
+                { character: '土', onyomi: ['ど', 'と'], kunyomi: ['つち'], meanings: ['earth', 'soil'] },
+                { character: '年', onyomi: ['ねん'], kunyomi: ['とし'], meanings: ['year'] },
+                { character: '中', onyomi: ['ちゅう'], kunyomi: ['なか'], meanings: ['middle', 'center'] },
+                { character: '上', onyomi: ['じょう'], kunyomi: ['うえ', 'あ'], meanings: ['up', 'above'] },
+                { character: '下', onyomi: ['か', 'げ'], kunyomi: ['した', 'さ'], meanings: ['down', 'below'] },
+                { character: '左', onyomi: ['さ'], kunyomi: ['ひだり'], meanings: ['left'] },
+                { character: '右', onyomi: ['ゆう', 'う'], kunyomi: ['みぎ'], meanings: ['right'] },
+                { character: '前', onyomi: ['ぜん'], kunyomi: ['まえ'], meanings: ['front', 'before'] },
+                { character: '後', onyomi: ['ご', 'こう'], kunyomi: ['うしろ', 'あと'], meanings: ['back', 'after'] },
+                { character: '東', onyomi: ['とう'], kunyomi: ['ひがし'], meanings: ['east'] },
+                { character: '西', onyomi: ['せい', 'さい'], kunyomi: ['にし'], meanings: ['west'] },
+                { character: '南', onyomi: ['なん'], kunyomi: ['みなみ'], meanings: ['south'] },
+                { character: '北', onyomi: ['ほく'], kunyomi: ['きた'], meanings: ['north'] },
+                { character: '白', onyomi: ['はく', 'びゃく'], kunyomi: ['しろ'], meanings: ['white'] },
+                { character: '黒', onyomi: ['こく'], kunyomi: ['くろ'], meanings: ['black'] },
+                { character: '赤', onyomi: ['せき'], kunyomi: ['あか'], meanings: ['red'] },
+                { character: '青', onyomi: ['せい'], kunyomi: ['あお'], meanings: ['blue', 'green'] },
+                { character: '学校', onyomi: ['がっこう'], kunyomi: [], meanings: ['school'] },
+                { character: '先生', onyomi: ['せんせい'], kunyomi: [], meanings: ['teacher'] },
+                { character: '学生', onyomi: ['がくせい'], kunyomi: [], meanings: ['student'] }
+            ],
+            'N4': [
+                { character: '時', onyomi: ['じ'], kunyomi: ['とき'], meanings: ['time', 'hour'] },
+                { character: '分', onyomi: ['ぶん', 'ふん'], kunyomi: ['わ'], meanings: ['minute', 'part'] },
+                { character: '今', onyomi: ['こん'], kunyomi: ['いま'], meanings: ['now'] },
+                { character: '来', onyomi: ['らい'], kunyomi: ['く'], meanings: ['come', 'next'] },
+                { character: '行', onyomi: ['こう', 'ぎょう'], kunyomi: ['い', 'ゆ'], meanings: ['go', 'line'] },
+                { character: '見', onyomi: ['けん'], kunyomi: ['み'], meanings: ['see', 'look'] },
+                { character: '聞', onyomi: ['ぶん'], kunyomi: ['き'], meanings: ['hear', 'listen'] },
+                { character: '話', onyomi: ['わ'], kunyomi: ['はな'], meanings: ['talk', 'speak'] },
+                { character: '読', onyomi: ['どく'], kunyomi: ['よ'], meanings: ['read'] },
+                { character: '書', onyomi: ['しょ'], kunyomi: ['か'], meanings: ['write'] },
+                { character: '買', onyomi: ['ばい'], kunyomi: ['か'], meanings: ['buy'] },
+                { character: '売', onyomi: ['ばい'], kunyomi: ['う'], meanings: ['sell'] },
+                { character: '食', onyomi: ['しょく'], kunyomi: ['た'], meanings: ['eat', 'food'] },
+                { character: '飲', onyomi: ['いん'], kunyomi: ['の'], meanings: ['drink'] },
+                { character: '住', onyomi: ['じゅう'], kunyomi: ['す'], meanings: ['live', 'reside'] },
+                { character: '働', onyomi: ['どう'], kunyomi: ['はたら'], meanings: ['work'] },
+                { character: '休', onyomi: ['きゅう'], kunyomi: ['やす'], meanings: ['rest', 'holiday'] },
+                { character: '学', onyomi: ['がく'], kunyomi: ['まな'], meanings: ['study', 'learn'] },
+                { character: '教', onyomi: ['きょう'], kunyomi: ['おし'], meanings: ['teach'] },
+                { character: '習', onyomi: ['しゅう'], kunyomi: ['なら'], meanings: ['learn', 'practice'] },
+                { character: '車', onyomi: ['しゃ'], kunyomi: ['くるま'], meanings: ['car', 'vehicle'] },
+                { character: '電', onyomi: ['でん'], kunyomi: [], meanings: ['electricity'] },
+                { character: '友', onyomi: ['ゆう'], kunyomi: ['とも'], meanings: ['friend'] },
+                { character: '家族', onyomi: ['かぞく'], kunyomi: [], meanings: ['family'] },
+                { character: '仕事', onyomi: ['しごと'], kunyomi: [], meanings: ['work', 'job'] },
+                { character: '病院', onyomi: ['びょういん'], kunyomi: [], meanings: ['hospital'] },
+                { character: '銀行', onyomi: ['ぎんこう'], kunyomi: [], meanings: ['bank'] },
+                { character: '郵便局', onyomi: ['ゆうびんきょく'], kunyomi: [], meanings: ['post office'] },
+                { character: '駅', onyomi: ['えき'], kunyomi: [], meanings: ['station'] },
+                { character: '空港', onyomi: ['くうこう'], kunyomi: [], meanings: ['airport'] }
+            ],
+            'N3': [
+                { character: '会', onyomi: ['かい'], kunyomi: ['あ'], meanings: ['meeting', 'association'] },
+                { character: '社', onyomi: ['しゃ'], kunyomi: ['やしろ'], meanings: ['company', 'shrine'] },
+                { character: '員', onyomi: ['いん'], kunyomi: [], meanings: ['member', 'personnel'] },
+                { character: '部', onyomi: ['ぶ'], kunyomi: [], meanings: ['part', 'section'] },
+                { character: '課', onyomi: ['か'], kunyomi: [], meanings: ['lesson', 'section'] },
+                { character: '長', onyomi: ['ちょう'], kunyomi: ['なが'], meanings: ['long', 'chief'] },
+                { character: '短', onyomi: ['たん'], kunyomi: ['みじか'], meanings: ['short'] },
+                { character: '高', onyomi: ['こう'], kunyomi: ['たか'], meanings: ['high', 'expensive'] },
+                { character: '低', onyomi: ['てい'], kunyomi: ['ひく'], meanings: ['low'] },
+                { character: '新', onyomi: ['しん'], kunyomi: ['あたら', 'あら'], meanings: ['new'] },
+                { character: '古', onyomi: ['こ'], kunyomi: ['ふる'], meanings: ['old'] },
+                { character: '多', onyomi: ['た'], kunyomi: ['おお'], meanings: ['many', 'much'] },
+                { character: '少', onyomi: ['しょう'], kunyomi: ['すこ', 'すく'], meanings: ['few', 'little'] },
+                { character: '早', onyomi: ['そう'], kunyomi: ['はや'], meanings: ['early', 'fast'] },
+                { character: '遅', onyomi: ['ち'], kunyomi: ['おそ'], meanings: ['late', 'slow'] },
+                { character: '近', onyomi: ['きん'], kunyomi: ['ちか'], meanings: ['near', 'close'] },
+                { character: '遠', onyomi: ['えん'], kunyomi: ['とお'], meanings: ['far', 'distant'] },
+                { character: '強', onyomi: ['きょう'], kunyomi: ['つよ'], meanings: ['strong'] },
+                { character: '弱', onyomi: ['じゃく'], kunyomi: ['よわ'], meanings: ['weak'] },
+                { character: '重', onyomi: ['じゅう', 'ちょう'], kunyomi: ['おも'], meanings: ['heavy', 'important'] },
+                { character: '軽', onyomi: ['けい'], kunyomi: ['かる'], meanings: ['light'] },
+                { character: '忙', onyomi: ['ぼう'], kunyomi: ['いそが'], meanings: ['busy'] },
+                { character: '暇', onyomi: ['か'], kunyomi: ['ひま'], meanings: ['free time', 'leisure'] },
+                { character: '楽', onyomi: ['らく', 'がく'], kunyomi: ['たの'], meanings: ['easy', 'fun', 'music'] },
+                { character: '難', onyomi: ['なん'], kunyomi: ['むずか'], meanings: ['difficult'] },
+                { character: '簡単', onyomi: ['かんたん'], kunyomi: [], meanings: ['simple', 'easy'] },
+                { character: '複雑', onyomi: ['ふくざつ'], kunyomi: [], meanings: ['complex', 'complicated'] },
+                { character: '安全', onyomi: ['あんぜん'], kunyomi: [], meanings: ['safe', 'security'] },
+                { character: '危険', onyomi: ['きけん'], kunyomi: [], meanings: ['dangerous'] },
+                { character: '便利', onyomi: ['べんり'], kunyomi: [], meanings: ['convenient'] }
+            ],
+            'N2': [
+                { character: '経', onyomi: ['けい'], kunyomi: ['へ'], meanings: ['pass through', 'manage'] },
+                { character: '営', onyomi: ['えい'], kunyomi: ['いとな'], meanings: ['manage', 'operate'] },
+                { character: '業', onyomi: ['ぎょう'], kunyomi: ['わざ'], meanings: ['business', 'work'] },
+                { character: '務', onyomi: ['む'], kunyomi: ['つと'], meanings: ['duty', 'task'] },
+                { character: '責', onyomi: ['せき'], kunyomi: ['せ'], meanings: ['responsibility', 'blame'] },
+                { character: '任', onyomi: ['にん'], kunyomi: ['まか'], meanings: ['responsibility', 'entrust'] },
+                { character: '職', onyomi: ['しょく'], kunyomi: [], meanings: ['job', 'occupation'] },
+                { character: '技', onyomi: ['ぎ'], kunyomi: ['わざ'], meanings: ['skill', 'technique'] },
+                { character: '術', onyomi: ['じゅつ'], kunyomi: [], meanings: ['art', 'technique'] },
+                { character: '能', onyomi: ['のう'], kunyomi: [], meanings: ['ability', 'capability'] },
+                { character: '力', onyomi: ['りょく', 'りき'], kunyomi: ['ちから'], meanings: ['power', 'strength'] },
+                { character: '効', onyomi: ['こう'], kunyomi: ['き'], meanings: ['effect', 'efficiency'] },
+                { character: '果', onyomi: ['か'], kunyomi: ['はた'], meanings: ['fruit', 'result'] },
+                { character: '実', onyomi: ['じつ'], kunyomi: ['み'], meanings: ['reality', 'fruit'] },
+                { character: '現', onyomi: ['げん'], kunyomi: ['あらわ'], meanings: ['present', 'appear'] },
+                { character: '象', onyomi: ['しょう'], kunyomi: ['ぞう'], meanings: ['phenomenon', 'elephant'] },
+                { character: '状', onyomi: ['じょう'], kunyomi: [], meanings: ['condition', 'state'] },
+                { character: '態', onyomi: ['たい'], kunyomi: [], meanings: ['condition', 'attitude'] },
+                { character: '度', onyomi: ['ど'], kunyomi: ['たび'], meanings: ['degree', 'time'] },
+                { character: '量', onyomi: ['りょう'], kunyomi: [], meanings: ['quantity', 'amount'] },
+                { character: '質', onyomi: ['しつ'], kunyomi: [], meanings: ['quality', 'substance'] },
+                { character: '品', onyomi: ['ひん'], kunyomi: ['しな'], meanings: ['product', 'goods'] },
+                { character: '物', onyomi: ['ぶつ', 'もつ'], kunyomi: ['もの'], meanings: ['thing', 'object'] },
+                { character: '事', onyomi: ['じ'], kunyomi: ['こと'], meanings: ['thing', 'matter'] },
+                { character: '件', onyomi: ['けん'], kunyomi: [], meanings: ['matter', 'case'] },
+                { character: '項', onyomi: ['こう'], kunyomi: [], meanings: ['item', 'clause'] },
+                { character: '目', onyomi: ['もく'], kunyomi: ['め'], meanings: ['eye', 'item'] },
+                { character: '点', onyomi: ['てん'], kunyomi: [], meanings: ['point', 'spot'] },
+                { character: '線', onyomi: ['せん'], kunyomi: [], meanings: ['line'] },
+                { character: '面', onyomi: ['めん'], kunyomi: ['おも'], meanings: ['face', 'surface'] }
+            ],
+            'N1': [
+                { character: '統', onyomi: ['とう'], kunyomi: ['す'], meanings: ['unify', 'control'] },
+                { character: '制', onyomi: ['せい'], kunyomi: [], meanings: ['control', 'system'] },
+                { character: '管', onyomi: ['かん'], kunyomi: ['くだ'], meanings: ['manage', 'tube'] },
+                { character: '理', onyomi: ['り'], kunyomi: [], meanings: ['reason', 'manage'] },
+                { character: '論', onyomi: ['ろん'], kunyomi: [], meanings: ['theory', 'argument'] },
+                { character: '説', onyomi: ['せつ'], kunyomi: ['と'], meanings: ['theory', 'explain'] },
+                { character: '解', onyomi: ['かい'], kunyomi: ['と'], meanings: ['solve', 'explain'] },
+                { character: '決', onyomi: ['けつ'], kunyomi: ['き'], meanings: ['decide', 'determine'] },
+                { character: '定', onyomi: ['てい'], kunyomi: ['さだ'], meanings: ['decide', 'fix'] },
+                { character: '確', onyomi: ['かく'], kunyomi: ['たし'], meanings: ['certain', 'confirm'] },
+                { character: '認', onyomi: ['にん'], kunyomi: ['みと'], meanings: ['recognize', 'admit'] },
+                { character: '識', onyomi: ['しき'], kunyomi: [], meanings: ['knowledge', 'recognition'] },
+                { character: '知', onyomi: ['ち'], kunyomi: ['し'], meanings: ['know', 'knowledge'] },
+                { character: '覚', onyomi: ['かく'], kunyomi: ['おぼ', 'さ'], meanings: ['remember', 'awake'] },
+                { character: '考', onyomi: ['こう'], kunyomi: ['かんが'], meanings: ['think', 'consider'] },
+                { character: '思', onyomi: ['し'], kunyomi: ['おも'], meanings: ['think', 'feel'] },
+                { character: '想', onyomi: ['そう'], kunyomi: [], meanings: ['think', 'imagine'] },
+                { character: '念', onyomi: ['ねん'], kunyomi: [], meanings: ['thought', 'feeling'] },
+                { character: '感', onyomi: ['かん'], kunyomi: [], meanings: ['feeling', 'sense'] },
+                { character: '情', onyomi: ['じょう'], kunyomi: [], meanings: ['emotion', 'feeling'] },
+                { character: '意', onyomi: ['い'], kunyomi: [], meanings: ['intention', 'meaning'] },
+                { character: '志', onyomi: ['し'], kunyomi: ['こころざ'], meanings: ['intention', 'ambition'] },
+                { character: '願', onyomi: ['がん'], kunyomi: ['ねが'], meanings: ['wish', 'request'] },
+                { character: '望', onyomi: ['ぼう'], kunyomi: ['のぞ'], meanings: ['hope', 'wish'] },
+                { character: '希', onyomi: ['き'], kunyomi: [], meanings: ['hope', 'rare'] },
+                { character: '求', onyomi: ['きゅう'], kunyomi: ['もと'], meanings: ['seek', 'request'] },
+                { character: '要', onyomi: ['よう'], kunyomi: ['い'], meanings: ['need', 'important'] },
+                { character: '必', onyomi: ['ひつ'], kunyomi: ['かなら'], meanings: ['necessary', 'certain'] },
+                { character: '須', onyomi: ['す'], kunyomi: [], meanings: ['must', 'necessary'] },
+                { character: '当', onyomi: ['とう'], kunyomi: ['あ'], meanings: ['hit', 'appropriate'] }
+            ]
+        };
+
+        // App state
+        let currentLevel = 'N5';
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            setupEventListeners();
+            loadKanjiGrid('N5');
+        }
+
+        function setupEventListeners() {
+            // Level buttons
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const level = e.target.dataset.level;
+                    loadKanjiGrid(level);
+                    updateLevelButtons(level);
+                });
+            });
+
+            // Modal
+            document.getElementById('close-modal').addEventListener('click', closeModal);
+            document.getElementById('kanji-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'kanji-modal') closeModal();
+            });
+        }
+
+        function loadKanjiGrid(level) {
+            currentLevel = level;
+            const kanjis = kanjiData[level] || [];
+            const grid = document.getElementById('kanji-grid');
+            const count = document.getElementById('kanji-count');
+
+            grid.innerHTML = '';
+            count.textContent = `Showing ${kanjis.length} kanji for ${level}`;
+
+            kanjis.forEach(kanji => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer kanji-card';
+                card.innerHTML = `
+                    <div class="text-4xl font-bold text-kanji-blue mb-2 kanji-character">
+                        ${kanji.character}
+                    </div>
+                    <div class="text-xs text-gray-600 space-y-1">
+                        ${kanji.onyomi.length > 0 ? `<div><strong>音:</strong> ${kanji.onyomi[0]}</div>` : ''}
+                        ${kanji.kunyomi.length > 0 ? `<div><strong>訓:</strong> ${kanji.kunyomi[0]}</div>` : ''}
+                        ${kanji.meanings.length > 0 ? `<div><strong>意味:</strong> ${kanji.meanings[0]}</div>` : ''}
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => showKanjiModal(kanji));
+                grid.appendChild(card);
+            });
+        }
+
+        function updateLevelButtons(activeLevel) {
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                const level = btn.dataset.level;
+                btn.className = level === activeLevel
+                    ? 'level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-kanji-blue text-white'
+                    : 'level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300';
+            });
+        }
+
+        function showKanjiModal(kanji) {
+            const modal = document.getElementById('kanji-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <div class="text-8xl font-bold text-kanji-blue mb-6">
+                        ${kanji.character}
+                    </div>
+                    
+                    <div class="space-y-3">
+                        ${kanji.onyomi.length > 0 ? `
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 mb-1">音読み (Onyomi)</h4>
+                                <p class="text-blue-700">${kanji.onyomi.join(', ')}</p>
+                            </div>
+                        ` : ''}
+                        
+                        ${kanji.kunyomi.length > 0 ? `
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-1">訓読み (Kunyomi)</h4>
+                                <p class="text-green-700">${kanji.kunyomi.join(', ')}</p>
+                            </div>
+                        ` : ''}
+                        
+                        ${kanji.meanings.length > 0 ? `
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-purple-800 mb-1">意味 (Meanings)</h4>
+                                <p class="text-purple-700">${kanji.meanings.join(', ')}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="text-center">
+                        <span class="inline-block bg-kanji-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            JLPT ${currentLevel}
+                        </span>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('kanji-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
