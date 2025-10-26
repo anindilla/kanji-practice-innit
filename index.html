@@ -3,79 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanji Learning App</title>
+    <title>Kanji Master - Learn Japanese Characters</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'japanese': ['Noto Sans JP', 'system-ui', 'sans-serif'],
+                    },
                     colors: {
-                        'kanji-blue': '#3B82F6',
+                        'kanji-blue': '#2563EB',
+                        'kanji-indigo': '#4F46E5',
+                        'kanji-purple': '#7C3AED',
+                        'kanji-pink': '#EC4899',
                         'kanji-red': '#EF4444',
+                        'kanji-orange': '#F97316',
+                        'kanji-yellow': '#EAB308',
                         'kanji-green': '#10B981',
-                    }
+                        'kanji-teal': '#14B8A6',
+                        'kanji-cyan': '#06B6D4',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'bounce-subtle': 'bounceSubtle 0.6s ease-in-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        },
+                    },
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-kanji-blue">漢字学習</h1>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="px-4 py-2 rounded-md text-sm font-medium bg-kanji-blue text-white">Learn Kanji</span>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen font-sans">
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Learn Kanji Tab -->
-        <div id="learn-content" class="space-y-6">
-            <!-- Header -->
-            <div class="text-center">
-                <h1 class="text-4xl font-bold text-gray-900 mb-2">Learn Kanji</h1>
-                <p class="text-lg text-gray-600">Click on any kanji to see detailed information</p>
+        <div id="learn-content" class="space-y-8 animate-fade-in">
+            <!-- Hero Section -->
+            <div class="text-center space-y-4">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-kanji-blue to-kanji-purple rounded-2xl mb-4 animate-bounce-subtle">
+                    <span class="text-3xl font-japanese font-bold text-white">漢</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-kanji-blue via-kanji-purple to-kanji-pink bg-clip-text text-transparent mb-4">
+                    Kanji Master
+                </h1>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Master Japanese characters with our interactive learning experience. Click any kanji to explore its secrets.
+                </p>
             </div>
 
             <!-- Level Tabs -->
-            <div class="flex flex-wrap justify-center gap-2 mb-8">
-                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-kanji-blue text-white" data-level="N5">N5</button>
-                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N4">N4</button>
-                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N3">N3</button>
-                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N2">N2</button>
-                <button class="level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300" data-level="N1">N1</button>
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-kanji-blue to-kanji-indigo text-white shadow-lg hover:shadow-xl" data-level="N5">
+                    <span class="text-lg">N5</span>
+                    <div class="text-xs opacity-90 mt-1">Beginner</div>
+                </button>
+                <button class="level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400 shadow-md hover:shadow-lg" data-level="N4">
+                    <span class="text-lg">N4</span>
+                    <div class="text-xs opacity-70 mt-1">Elementary</div>
+                </button>
+                <button class="level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400 shadow-md hover:shadow-lg" data-level="N3">
+                    <span class="text-lg">N3</span>
+                    <div class="text-xs opacity-70 mt-1">Intermediate</div>
+                </button>
+                <button class="level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400 shadow-md hover:shadow-lg" data-level="N2">
+                    <span class="text-lg">N2</span>
+                    <div class="text-xs opacity-70 mt-1">Advanced</div>
+                </button>
+                <button class="level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400 shadow-md hover:shadow-lg" data-level="N1">
+                    <span class="text-lg">N1</span>
+                    <div class="text-xs opacity-70 mt-1">Expert</div>
+                </button>
             </div>
 
             <!-- Kanji Grid -->
-            <div id="kanji-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+            <div id="kanji-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-4 md:gap-6">
                 <!-- Kanji cards will be populated here -->
             </div>
 
             <!-- Kanji Count -->
-            <div class="text-center text-gray-500">
-                <span id="kanji-count">Showing 0 kanji for N5</span>
+            <div class="text-center">
+                <div class="inline-flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+                    <div class="w-3 h-3 bg-gradient-to-r from-kanji-green to-kanji-teal rounded-full mr-3 animate-pulse-slow"></div>
+                    <span id="kanji-count" class="text-slate-600 font-medium">Showing 0 kanji for N5</span>
+                </div>
             </div>
         </div>
 
     </main>
 
     <!-- Kanji Modal -->
-    <div id="kanji-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div id="kanji-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 animate-fade-in">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg max-w-md w-full p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold">Kanji Details</h3>
-                    <button id="close-modal" class="text-gray-500 hover:text-gray-700">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white/95 backdrop-blur-xl rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-white/20 animate-slide-up">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-kanji-blue to-kanji-purple bg-clip-text text-transparent">Kanji Details</h3>
+                    <button id="close-modal" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors group">
+                        <svg class="w-5 h-5 text-slate-500 group-hover:text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
@@ -88,14 +133,16 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-auto">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-gray-500 text-sm">
-                Kanji Learning App - Practice Japanese Characters
-            </p>
-            <p class="text-center text-gray-400 text-xs mt-2">
-                Vibe-coded by <a href="https://anindilla.com" target="_blank" class="text-kanji-blue hover:text-blue-600 transition-colors">dilleuh</a>
-            </p>
+    <footer class="mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-3">
+                <p class="text-slate-500 text-sm font-medium">
+                    Master Japanese Characters with Kanji Master
+                </p>
+                <p class="text-slate-400 text-xs">
+                    Vibe-coded by <a href="https://anindilla.com" target="_blank" class="text-kanji-blue hover:text-kanji-purple transition-colors font-semibold">dilleuh</a>
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -578,15 +625,15 @@
 
             kanjis.forEach(kanji => {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer kanji-card';
+                card.className = 'bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer kanji-card border border-white/20 group';
                 card.innerHTML = `
-                    <div class="text-4xl font-bold text-kanji-blue mb-2 kanji-character">
+                    <div class="text-5xl font-japanese font-bold bg-gradient-to-br from-kanji-blue to-kanji-purple bg-clip-text text-transparent mb-4 kanji-character group-hover:animate-bounce-subtle">
                         ${kanji.character}
                     </div>
-                    <div class="text-xs text-gray-600 space-y-1">
-                        ${kanji.onyomi.length > 0 ? `<div><strong>音:</strong> ${kanji.onyomi[0]}</div>` : ''}
-                        ${kanji.kunyomi.length > 0 ? `<div><strong>訓:</strong> ${kanji.kunyomi[0]}</div>` : ''}
-                        ${kanji.meanings.length > 0 ? `<div><strong>意味:</strong> ${kanji.meanings[0]}</div>` : ''}
+                    <div class="text-sm text-slate-600 space-y-2">
+                        ${kanji.onyomi.length > 0 ? `<div class="bg-blue-50 rounded-lg px-3 py-2"><span class="font-semibold text-blue-700">音:</span> <span class="text-blue-600">${kanji.onyomi[0]}</span></div>` : ''}
+                        ${kanji.kunyomi.length > 0 ? `<div class="bg-green-50 rounded-lg px-3 py-2"><span class="font-semibold text-green-700">訓:</span> <span class="text-green-600">${kanji.kunyomi[0]}</span></div>` : ''}
+                        ${kanji.meanings.length > 0 ? `<div class="bg-purple-50 rounded-lg px-3 py-2"><span class="font-semibold text-purple-700">意味:</span> <span class="text-purple-600">${kanji.meanings[0]}</span></div>` : ''}
                     </div>
                 `;
                 
@@ -599,8 +646,8 @@
             document.querySelectorAll('.level-btn').forEach(btn => {
                 const level = btn.dataset.level;
                 btn.className = level === activeLevel
-                    ? 'level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-kanji-blue text-white'
-                    : 'level-btn px-6 py-3 rounded-lg font-semibold text-sm transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300';
+                    ? 'level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-kanji-blue to-kanji-indigo text-white shadow-lg hover:shadow-xl'
+                    : 'level-btn px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400 shadow-md hover:shadow-lg';
             });
         }
 
@@ -609,36 +656,37 @@
             const content = document.getElementById('modal-content');
             
             content.innerHTML = `
-                <div class="space-y-4">
-                    <div class="text-8xl font-bold text-kanji-blue mb-6">
+                <div class="space-y-6">
+                    <div class="text-9xl font-japanese font-black bg-gradient-to-br from-kanji-blue via-kanji-purple to-kanji-pink bg-clip-text text-transparent mb-8 animate-bounce-subtle">
                         ${kanji.character}
                     </div>
                     
-                    <div class="space-y-3">
+                    <div class="space-y-4">
                         ${kanji.onyomi.length > 0 ? `
-                            <div class="bg-blue-50 p-3 rounded-lg">
-                                <h4 class="font-semibold text-blue-800 mb-1">音読み (Onyomi)</h4>
-                                <p class="text-blue-700">${kanji.onyomi.join(', ')}</p>
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-200">
+                                <h4 class="font-bold text-blue-800 mb-2 text-lg">音読み (Onyomi)</h4>
+                                <p class="text-blue-700 font-medium text-lg">${kanji.onyomi.join(', ')}</p>
                             </div>
                         ` : ''}
                         
                         ${kanji.kunyomi.length > 0 ? `
-                            <div class="bg-green-50 p-3 rounded-lg">
-                                <h4 class="font-semibold text-green-800 mb-1">訓読み (Kunyomi)</h4>
-                                <p class="text-green-700">${kanji.kunyomi.join(', ')}</p>
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-2xl border border-green-200">
+                                <h4 class="font-bold text-green-800 mb-2 text-lg">訓読み (Kunyomi)</h4>
+                                <p class="text-green-700 font-medium text-lg">${kanji.kunyomi.join(', ')}</p>
                             </div>
                         ` : ''}
                         
                         ${kanji.meanings.length > 0 ? `
-                            <div class="bg-purple-50 p-3 rounded-lg">
-                                <h4 class="font-semibold text-purple-800 mb-1">意味 (Meanings)</h4>
-                                <p class="text-purple-700">${kanji.meanings.join(', ')}</p>
+                            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-2xl border border-purple-200">
+                                <h4 class="font-bold text-purple-800 mb-2 text-lg">意味 (Meanings)</h4>
+                                <p class="text-purple-700 font-medium text-lg">${kanji.meanings.join(', ')}</p>
                             </div>
                         ` : ''}
                     </div>
                     
                     <div class="text-center">
-                        <span class="inline-block bg-kanji-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <span class="inline-flex items-center bg-gradient-to-r from-kanji-blue to-kanji-purple text-white px-6 py-3 rounded-2xl text-base font-bold shadow-lg">
+                            <div class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse-slow"></div>
                             JLPT ${currentLevel}
                         </span>
                     </div>
