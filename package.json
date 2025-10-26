@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/kanji-learning-app.git"
+    "url": "https://github.com/dilleuh/kanji-practice-innit.git"
   },
-  "homepage": "https://yourusername.github.io/kanji-learning-app"
+  "homepage": "https://kanji-practice-innit.vercel.app"
 }
