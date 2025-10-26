@@ -100,9 +100,10 @@
     </footer>
 
     <script>
-        // Kanji data
+        // Kanji data - Comprehensive database
         const kanjiData = {
             'N5': [
+                // Basic numbers
                 { character: '一', onyomi: ['いち', 'いつ'], kunyomi: ['ひと'], meanings: ['one'] },
                 { character: '二', onyomi: ['に'], kunyomi: ['ふた'], meanings: ['two'] },
                 { character: '三', onyomi: ['さん'], kunyomi: ['み'], meanings: ['three'] },
@@ -113,20 +114,63 @@
                 { character: '八', onyomi: ['はち'], kunyomi: ['や'], meanings: ['eight'] },
                 { character: '九', onyomi: ['きゅう', 'く'], kunyomi: ['ここの'], meanings: ['nine'] },
                 { character: '十', onyomi: ['じゅう'], kunyomi: ['とお'], meanings: ['ten'] },
+                { character: '百', onyomi: ['ひゃく'], kunyomi: [], meanings: ['hundred'] },
+                { character: '千', onyomi: ['せん'], kunyomi: ['ち'], meanings: ['thousand'] },
+                { character: '万', onyomi: ['まん', 'ばん'], kunyomi: [], meanings: ['ten thousand'] },
+                
+                // Basic people and body
                 { character: '人', onyomi: ['じん', 'にん'], kunyomi: ['ひと'], meanings: ['person', 'people'] },
-                { character: '大', onyomi: ['だい', 'たい'], kunyomi: ['おお'], meanings: ['big', 'large'] },
-                { character: '小', onyomi: ['しょう'], kunyomi: ['ちい', 'こ'], meanings: ['small', 'little'] },
+                { character: '男', onyomi: ['だん', 'なん'], kunyomi: ['おとこ'], meanings: ['man', 'male'] },
+                { character: '女', onyomi: ['じょ', 'にょ'], kunyomi: ['おんな'], meanings: ['woman', 'female'] },
+                { character: '子', onyomi: ['し'], kunyomi: ['こ'], meanings: ['child'] },
+                { character: '目', onyomi: ['もく'], kunyomi: ['め'], meanings: ['eye'] },
+                { character: '口', onyomi: ['こう'], kunyomi: ['くち'], meanings: ['mouth'] },
+                { character: '手', onyomi: ['しゅ'], kunyomi: ['て'], meanings: ['hand'] },
+                { character: '足', onyomi: ['そく'], kunyomi: ['あし'], meanings: ['foot', 'leg'] },
+                { character: '耳', onyomi: ['じ'], kunyomi: ['みみ'], meanings: ['ear'] },
+                { character: '頭', onyomi: ['とう'], kunyomi: ['あたま'], meanings: ['head'] },
+                
+                // Basic nature
                 { character: '山', onyomi: ['さん'], kunyomi: ['やま'], meanings: ['mountain'] },
                 { character: '川', onyomi: ['せん'], kunyomi: ['かわ'], meanings: ['river'] },
+                { character: '海', onyomi: ['かい'], kunyomi: ['うみ'], meanings: ['sea', 'ocean'] },
                 { character: '田', onyomi: ['でん'], kunyomi: ['た'], meanings: ['rice field'] },
+                { character: '森', onyomi: ['しん'], kunyomi: ['もり'], meanings: ['forest'] },
+                { character: '木', onyomi: ['もく', 'ぼく'], kunyomi: ['き'], meanings: ['tree', 'wood'] },
+                { character: '花', onyomi: ['か'], kunyomi: ['はな'], meanings: ['flower'] },
+                { character: '草', onyomi: ['そう'], kunyomi: ['くさ'], meanings: ['grass'] },
+                
+                // Time and calendar
                 { character: '日', onyomi: ['にち', 'じつ'], kunyomi: ['ひ', 'か'], meanings: ['day', 'sun'] },
                 { character: '月', onyomi: ['げつ', 'がつ'], kunyomi: ['つき'], meanings: ['month', 'moon'] },
+                { character: '年', onyomi: ['ねん'], kunyomi: ['とし'], meanings: ['year'] },
+                { character: '時', onyomi: ['じ'], kunyomi: ['とき'], meanings: ['time', 'hour'] },
+                { character: '分', onyomi: ['ぶん', 'ふん'], kunyomi: ['わ'], meanings: ['minute', 'part'] },
+                { character: '今', onyomi: ['こん'], kunyomi: ['いま'], meanings: ['now'] },
+                { character: '朝', onyomi: ['ちょう'], kunyomi: ['あさ'], meanings: ['morning'] },
+                { character: '夜', onyomi: ['や'], kunyomi: ['よる'], meanings: ['night'] },
+                { character: '午', onyomi: ['ご'], kunyomi: [], meanings: ['noon'] },
+                { character: '週', onyomi: ['しゅう'], kunyomi: [], meanings: ['week'] },
+                
+                // Basic elements
                 { character: '火', onyomi: ['か'], kunyomi: ['ひ'], meanings: ['fire'] },
                 { character: '水', onyomi: ['すい'], kunyomi: ['みず'], meanings: ['water'] },
-                { character: '木', onyomi: ['もく', 'ぼく'], kunyomi: ['き'], meanings: ['tree', 'wood'] },
                 { character: '金', onyomi: ['きん', 'こん'], kunyomi: ['かね'], meanings: ['gold', 'money'] },
                 { character: '土', onyomi: ['ど', 'と'], kunyomi: ['つち'], meanings: ['earth', 'soil'] },
-                { character: '年', onyomi: ['ねん'], kunyomi: ['とし'], meanings: ['year'] },
+                { character: '空', onyomi: ['くう'], kunyomi: ['そら'], meanings: ['sky', 'empty'] },
+                
+                // Colors
+                { character: '白', onyomi: ['はく', 'びゃく'], kunyomi: ['しろ'], meanings: ['white'] },
+                { character: '黒', onyomi: ['こく'], kunyomi: ['くろ'], meanings: ['black'] },
+                { character: '赤', onyomi: ['せき'], kunyomi: ['あか'], meanings: ['red'] },
+                { character: '青', onyomi: ['せい'], kunyomi: ['あお'], meanings: ['blue', 'green'] },
+                { character: '黄', onyomi: ['おう'], kunyomi: ['き'], meanings: ['yellow'] },
+                
+                // Directions
+                { character: '東', onyomi: ['とう'], kunyomi: ['ひがし'], meanings: ['east'] },
+                { character: '西', onyomi: ['せい', 'さい'], kunyomi: ['にし'], meanings: ['west'] },
+                { character: '南', onyomi: ['なん'], kunyomi: ['みなみ'], meanings: ['south'] },
+                { character: '北', onyomi: ['ほく'], kunyomi: ['きた'], meanings: ['north'] },
                 { character: '中', onyomi: ['ちゅう'], kunyomi: ['なか'], meanings: ['middle', 'center'] },
                 { character: '上', onyomi: ['じょう'], kunyomi: ['うえ', 'あ'], meanings: ['up', 'above'] },
                 { character: '下', onyomi: ['か', 'げ'], kunyomi: ['した', 'さ'], meanings: ['down', 'below'] },
@@ -134,17 +178,119 @@
                 { character: '右', onyomi: ['ゆう', 'う'], kunyomi: ['みぎ'], meanings: ['right'] },
                 { character: '前', onyomi: ['ぜん'], kunyomi: ['まえ'], meanings: ['front', 'before'] },
                 { character: '後', onyomi: ['ご', 'こう'], kunyomi: ['うしろ', 'あと'], meanings: ['back', 'after'] },
-                { character: '東', onyomi: ['とう'], kunyomi: ['ひがし'], meanings: ['east'] },
-                { character: '西', onyomi: ['せい', 'さい'], kunyomi: ['にし'], meanings: ['west'] },
-                { character: '南', onyomi: ['なん'], kunyomi: ['みなみ'], meanings: ['south'] },
-                { character: '北', onyomi: ['ほく'], kunyomi: ['きた'], meanings: ['north'] },
-                { character: '白', onyomi: ['はく', 'びゃく'], kunyomi: ['しろ'], meanings: ['white'] },
-                { character: '黒', onyomi: ['こく'], kunyomi: ['くろ'], meanings: ['black'] },
-                { character: '赤', onyomi: ['せき'], kunyomi: ['あか'], meanings: ['red'] },
-                { character: '青', onyomi: ['せい'], kunyomi: ['あお'], meanings: ['blue', 'green'] },
+                
+                // Size and quantity
+                { character: '大', onyomi: ['だい', 'たい'], kunyomi: ['おお'], meanings: ['big', 'large'] },
+                { character: '小', onyomi: ['しょう'], kunyomi: ['ちい', 'こ'], meanings: ['small', 'little'] },
+                { character: '多', onyomi: ['た'], kunyomi: ['おお'], meanings: ['many', 'much'] },
+                { character: '少', onyomi: ['しょう'], kunyomi: ['すこ', 'すく'], meanings: ['few', 'little'] },
+                { character: '長', onyomi: ['ちょう'], kunyomi: ['なが'], meanings: ['long'] },
+                { character: '短', onyomi: ['たん'], kunyomi: ['みじか'], meanings: ['short'] },
+                { character: '高', onyomi: ['こう'], kunyomi: ['たか'], meanings: ['high', 'expensive'] },
+                { character: '低', onyomi: ['てい'], kunyomi: ['ひく'], meanings: ['low'] },
+                
+                // Basic actions
+                { character: '行', onyomi: ['こう', 'ぎょう'], kunyomi: ['い', 'ゆ'], meanings: ['go', 'line'] },
+                { character: '来', onyomi: ['らい'], kunyomi: ['く'], meanings: ['come', 'next'] },
+                { character: '見', onyomi: ['けん'], kunyomi: ['み'], meanings: ['see', 'look'] },
+                { character: '聞', onyomi: ['ぶん'], kunyomi: ['き'], meanings: ['hear', 'listen'] },
+                { character: '話', onyomi: ['わ'], kunyomi: ['はな'], meanings: ['talk', 'speak'] },
+                { character: '読', onyomi: ['どく'], kunyomi: ['よ'], meanings: ['read'] },
+                { character: '書', onyomi: ['しょ'], kunyomi: ['か'], meanings: ['write'] },
+                { character: '買', onyomi: ['ばい'], kunyomi: ['か'], meanings: ['buy'] },
+                { character: '売', onyomi: ['ばい'], kunyomi: ['う'], meanings: ['sell'] },
+                { character: '食', onyomi: ['しょく'], kunyomi: ['た'], meanings: ['eat', 'food'] },
+                { character: '飲', onyomi: ['いん'], kunyomi: ['の'], meanings: ['drink'] },
+                { character: '住', onyomi: ['じゅう'], kunyomi: ['す'], meanings: ['live', 'reside'] },
+                { character: '働', onyomi: ['どう'], kunyomi: ['はたら'], meanings: ['work'] },
+                { character: '休', onyomi: ['きゅう'], kunyomi: ['やす'], meanings: ['rest', 'holiday'] },
+                { character: '学', onyomi: ['がく'], kunyomi: ['まな'], meanings: ['study', 'learn'] },
+                { character: '教', onyomi: ['きょう'], kunyomi: ['おし'], meanings: ['teach'] },
+                { character: '習', onyomi: ['しゅう'], kunyomi: ['なら'], meanings: ['learn', 'practice'] },
+                
+                // Family and relationships
+                { character: '父', onyomi: ['ふ'], kunyomi: ['ちち'], meanings: ['father'] },
+                { character: '母', onyomi: ['ぼ'], kunyomi: ['はは'], meanings: ['mother'] },
+                { character: '兄', onyomi: ['けい'], kunyomi: ['あに'], meanings: ['older brother'] },
+                { character: '弟', onyomi: ['てい'], kunyomi: ['おとうと'], meanings: ['younger brother'] },
+                { character: '姉', onyomi: ['し'], kunyomi: ['あね'], meanings: ['older sister'] },
+                { character: '妹', onyomi: ['まい'], kunyomi: ['いもうと'], meanings: ['younger sister'] },
+                { character: '友', onyomi: ['ゆう'], kunyomi: ['とも'], meanings: ['friend'] },
+                { character: '家族', onyomi: ['かぞく'], kunyomi: [], meanings: ['family'] },
+                
+                // School and work
                 { character: '学校', onyomi: ['がっこう'], kunyomi: [], meanings: ['school'] },
                 { character: '先生', onyomi: ['せんせい'], kunyomi: [], meanings: ['teacher'] },
-                { character: '学生', onyomi: ['がくせい'], kunyomi: [], meanings: ['student'] }
+                { character: '学生', onyomi: ['がくせい'], kunyomi: [], meanings: ['student'] },
+                { character: '仕事', onyomi: ['しごと'], kunyomi: [], meanings: ['work', 'job'] },
+                { character: '会社', onyomi: ['かいしゃ'], kunyomi: [], meanings: ['company'] },
+                
+                // Places
+                { character: '家', onyomi: ['か'], kunyomi: ['いえ', 'うち'], meanings: ['house', 'home'] },
+                { character: '店', onyomi: ['てん'], kunyomi: ['みせ'], meanings: ['shop', 'store'] },
+                { character: '病院', onyomi: ['びょういん'], kunyomi: [], meanings: ['hospital'] },
+                { character: '銀行', onyomi: ['ぎんこう'], kunyomi: [], meanings: ['bank'] },
+                { character: '郵便局', onyomi: ['ゆうびんきょく'], kunyomi: [], meanings: ['post office'] },
+                { character: '駅', onyomi: ['えき'], kunyomi: [], meanings: ['station'] },
+                { character: '空港', onyomi: ['くうこう'], kunyomi: [], meanings: ['airport'] },
+                { character: '図書館', onyomi: ['としょかん'], kunyomi: [], meanings: ['library'] },
+                
+                // Transportation
+                { character: '車', onyomi: ['しゃ'], kunyomi: ['くるま'], meanings: ['car', 'vehicle'] },
+                { character: '電', onyomi: ['でん'], kunyomi: [], meanings: ['electricity'] },
+                { character: '電車', onyomi: ['でんしゃ'], kunyomi: [], meanings: ['train'] },
+                { character: 'バス', onyomi: ['バス'], kunyomi: [], meanings: ['bus'] },
+                { character: '自転車', onyomi: ['じてんしゃ'], kunyomi: [], meanings: ['bicycle'] },
+                
+                // Food and drink
+                { character: '米', onyomi: ['べい'], kunyomi: ['こめ'], meanings: ['rice'] },
+                { character: '肉', onyomi: ['にく'], kunyomi: [], meanings: ['meat'] },
+                { character: '魚', onyomi: ['ぎょ'], kunyomi: ['さかな'], meanings: ['fish'] },
+                { character: '野菜', onyomi: ['やさい'], kunyomi: [], meanings: ['vegetables'] },
+                { character: '果物', onyomi: ['くだもの'], kunyomi: [], meanings: ['fruit'] },
+                { character: '牛乳', onyomi: ['ぎゅうにゅう'], kunyomi: [], meanings: ['milk'] },
+                { character: '水', onyomi: ['すい'], kunyomi: ['みず'], meanings: ['water'] },
+                { character: '茶', onyomi: ['ちゃ'], kunyomi: [], meanings: ['tea'] },
+                { character: 'コーヒー', onyomi: ['コーヒー'], kunyomi: [], meanings: ['coffee'] },
+                
+                // Clothing
+                { character: '服', onyomi: ['ふく'], kunyomi: [], meanings: ['clothes'] },
+                { character: '帽子', onyomi: ['ぼうし'], kunyomi: [], meanings: ['hat'] },
+                { character: '靴', onyomi: ['くつ'], kunyomi: [], meanings: ['shoes'] },
+                { character: 'シャツ', onyomi: ['シャツ'], kunyomi: [], meanings: ['shirt'] },
+                { character: 'ズボン', onyomi: ['ズボン'], kunyomi: [], meanings: ['pants'] },
+                
+                // Weather and seasons
+                { character: '天気', onyomi: ['てんき'], kunyomi: [], meanings: ['weather'] },
+                { character: '雨', onyomi: ['う'], kunyomi: ['あめ'], meanings: ['rain'] },
+                { character: '雪', onyomi: ['せつ'], kunyomi: ['ゆき'], meanings: ['snow'] },
+                { character: '風', onyomi: ['ふう'], kunyomi: ['かぜ'], meanings: ['wind'] },
+                { character: '春', onyomi: ['しゅん'], kunyomi: ['はる'], meanings: ['spring'] },
+                { character: '夏', onyomi: ['か'], kunyomi: ['なつ'], meanings: ['summer'] },
+                { character: '秋', onyomi: ['しゅう'], kunyomi: ['あき'], meanings: ['autumn'] },
+                { character: '冬', onyomi: ['とう'], kunyomi: ['ふゆ'], meanings: ['winter'] },
+                
+                // Basic adjectives
+                { character: '新', onyomi: ['しん'], kunyomi: ['あたら', 'あら'], meanings: ['new'] },
+                { character: '古', onyomi: ['こ'], kunyomi: ['ふる'], meanings: ['old'] },
+                { character: '早', onyomi: ['そう'], kunyomi: ['はや'], meanings: ['early', 'fast'] },
+                { character: '遅', onyomi: ['ち'], kunyomi: ['おそ'], meanings: ['late', 'slow'] },
+                { character: '近', onyomi: ['きん'], kunyomi: ['ちか'], meanings: ['near', 'close'] },
+                { character: '遠', onyomi: ['えん'], kunyomi: ['とお'], meanings: ['far', 'distant'] },
+                { character: '強', onyomi: ['きょう'], kunyomi: ['つよ'], meanings: ['strong'] },
+                { character: '弱', onyomi: ['じゃく'], kunyomi: ['よわ'], meanings: ['weak'] },
+                { character: '重', onyomi: ['じゅう', 'ちょう'], kunyomi: ['おも'], meanings: ['heavy', 'important'] },
+                { character: '軽', onyomi: ['けい'], kunyomi: ['かる'], meanings: ['light'] },
+                { character: '忙', onyomi: ['ぼう'], kunyomi: ['いそが'], meanings: ['busy'] },
+                { character: '暇', onyomi: ['か'], kunyomi: ['ひま'], meanings: ['free time', 'leisure'] },
+                { character: '楽', onyomi: ['らく', 'がく'], kunyomi: ['たの'], meanings: ['easy', 'fun', 'music'] },
+                { character: '難', onyomi: ['なん'], kunyomi: ['むずか'], meanings: ['difficult'] },
+                { character: '簡単', onyomi: ['かんたん'], kunyomi: [], meanings: ['simple', 'easy'] },
+                { character: '安全', onyomi: ['あんぜん'], kunyomi: [], meanings: ['safe', 'security'] },
+                { character: '危険', onyomi: ['きけん'], kunyomi: [], meanings: ['dangerous'] },
+                { character: '便利', onyomi: ['べんり'], kunyomi: [], meanings: ['convenient'] },
+                { character: '有名', onyomi: ['ゆうめい'], kunyomi: [], meanings: ['famous'] },
+                { character: '大切', onyomi: ['たいせつ'], kunyomi: [], meanings: ['important', 'precious'] }
             ],
             'N4': [
                 { character: '時', onyomi: ['じ'], kunyomi: ['とき'], meanings: ['time', 'hour'] },
