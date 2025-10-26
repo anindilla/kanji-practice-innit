@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanji Master - Learn Japanese Characters</title>
+    <title>Kanji Practice, Innit?</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +66,7 @@
                     <span class="text-3xl font-japanese font-bold text-white">漢</span>
                 </div>
                 <h1 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-kanji-blue via-kanji-purple to-kanji-pink bg-clip-text text-transparent mb-4">
-                    Kanji Master
+                    Kanji Practice, Innit?
                 </h1>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                     Master Japanese characters with our interactive learning experience. Click any kanji to explore its secrets.
@@ -601,7 +601,7 @@
             // Level buttons
             document.querySelectorAll('.level-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const level = e.target.dataset.level;
+                    const level = e.currentTarget.dataset.level;
                     loadKanjiGrid(level);
                     updateLevelButtons(level);
                 });
@@ -620,25 +620,32 @@
             const grid = document.getElementById('kanji-grid');
             const count = document.getElementById('kanji-count');
 
-            grid.innerHTML = '';
+            // Update counter immediately
             count.textContent = `Showing ${kanjis.length} kanji for ${level}`;
-
-            kanjis.forEach(kanji => {
-                const card = document.createElement('div');
-                card.className = 'bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer kanji-card border border-white/20 group';
-                card.innerHTML = `
-                    <div class="text-5xl font-japanese font-bold bg-gradient-to-br from-kanji-blue to-kanji-purple bg-clip-text text-transparent mb-4 kanji-character group-hover:animate-bounce-subtle">
-                        ${kanji.character}
-                    </div>
-                    <div class="text-sm text-slate-600 space-y-2">
-                        ${kanji.onyomi.length > 0 ? `<div class="bg-blue-50 rounded-lg px-3 py-2"><span class="font-semibold text-blue-700">音:</span> <span class="text-blue-600">${kanji.onyomi[0]}</span></div>` : ''}
-                        ${kanji.kunyomi.length > 0 ? `<div class="bg-green-50 rounded-lg px-3 py-2"><span class="font-semibold text-green-700">訓:</span> <span class="text-green-600">${kanji.kunyomi[0]}</span></div>` : ''}
-                        ${kanji.meanings.length > 0 ? `<div class="bg-purple-50 rounded-lg px-3 py-2"><span class="font-semibold text-purple-700">意味:</span> <span class="text-purple-600">${kanji.meanings[0]}</span></div>` : ''}
-                    </div>
-                `;
-                
-                card.addEventListener('click', () => showKanjiModal(kanji));
-                grid.appendChild(card);
+            
+            // Clear grid and show loading state
+            grid.innerHTML = '<div class="col-span-full text-center py-8"><div class="inline-block w-8 h-8 border-4 border-kanji-blue border-t-transparent rounded-full animate-spin"></div></div>';
+            
+            // Use requestAnimationFrame for smooth rendering
+            requestAnimationFrame(() => {
+                grid.innerHTML = '';
+                kanjis.forEach(kanji => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer kanji-card border border-white/20 group';
+                    card.innerHTML = `
+                        <div class="text-5xl font-japanese font-bold bg-gradient-to-br from-kanji-blue to-kanji-purple bg-clip-text text-transparent mb-4 kanji-character group-hover:animate-bounce-subtle">
+                            ${kanji.character}
+                        </div>
+                        <div class="text-sm text-slate-600 space-y-2">
+                            ${kanji.onyomi.length > 0 ? `<div class="bg-blue-50 rounded-lg px-3 py-2"><span class="font-semibold text-blue-700">音:</span> <span class="text-blue-600">${kanji.onyomi[0]}</span></div>` : ''}
+                            ${kanji.kunyomi.length > 0 ? `<div class="bg-green-50 rounded-lg px-3 py-2"><span class="font-semibold text-green-700">訓:</span> <span class="text-green-600">${kanji.kunyomi[0]}</span></div>` : ''}
+                            ${kanji.meanings.length > 0 ? `<div class="bg-purple-50 rounded-lg px-3 py-2"><span class="font-semibold text-purple-700">意味:</span> <span class="text-purple-600">${kanji.meanings[0]}</span></div>` : ''}
+                        </div>
+                    `;
+                    
+                    card.addEventListener('click', () => showKanjiModal(kanji));
+                    grid.appendChild(card);
+                });
             });
         }
 
